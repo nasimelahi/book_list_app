@@ -1,85 +1,37 @@
-//class for book
+let main_div = document.querySelectorAll('.slide');
+let prev_b = document.querySelector('#prev');
+let next_b = document.querySelector('#next');
+let auto = true;
+let sliderauto;
 
-class book{
-  constructor(title,author,isbn){
-    this.title= title;
-    this.author = author;
-    this.isbn = isbn;
-  }
-}
-
-// UI handle
-class UI{
-  static storebook(){
-    let books = [
-      {title: "Abu daud", author: "immm abu daud", isbn: "6543"},
-      {title: "bukari", author: "immm bukari", isbn: "0543"}
-    ];
-    books.forEach((book) => UI.addbooktolist(book));
-  }
-  static addbooktolist(book){
-    let form = document.querySelector('.tbody');
-    let tr = document.createElement('tr');
-    tr.innerHTML = `
-    <td>${book.title}</td>
-    <td>${book.author}</td>
-    <td>${book.isbn}</td>
-    <td><a href="" class="btn btn-sm btn-danger dalete">X</a></td>
-    `;
-    form.appendChild(tr);
-  }
-
-  static showalert(massage,clasName){
-    let div = document.createElement('div');
-    div.className = `alert alert-${clasName}`;
-    div.innerHTML =  `${massage}`;
-    let container = document.querySelector('.foo');
-    let form = document.querySelector('.add');
-    container.insertBefore(div,form);
-    //vanish in 2 sec
-
-    setTimeout((e) =>showalert.remove(),2000);
-  }
-  static deletebook(e){
-    if(e.target.classList.contains('dalete')){
-      e.target.parentElement.parentElement.remove();
-    }
-  }
-}
-//show book in list
-
-document.addEventListener('DOMContentLoaded',UI.storebook);
-
-//add to list
-
-document.querySelector('.add').addEventListener('click',(e) =>{
-
-  e.preventDefault();
-
-  if (e.target.classList.contains('submit')) {
-
-    let title = document.querySelector('#title').value;
-    let author = document.querySelector('#author').value;
-    let isbn = document.querySelector('#isbn').value;
-
-    if (title == '' || author == '' || isbn == '') {
-      UI.showalert('please fill the field','danger');
+nextslide = (e) => {
+    let current = document.querySelector('.current');
+    current.classList.remove('current');
+    if (current.nextElementSibling) {
+       current.nextElementSibling.classList.add('current'); 
     }else{
-      let books = new book(title,author,isbn);
-
-      //console.log(books);
-
-      //add to list
-
-      UI.addbooktolist(books);
+        main_div[0].classList.add('current');
     }
-   }
+}
 
-});
+prevslide = (e) => {
+    let current = document.querySelector('.current');
+    current.classList.remove('current');
+    if (current.previousElementSibling) {
+       current.previousElementSibling.classList.add('current'); 
+    }else{
+        main_div[main_div.length-1].classList.add('current');
+    }
+}
 
-document.querySelector('.table').addEventListener('click',(e)=>{
-  e.preventDefault();
-  UI.deletebook(e);
-  UI.showalert('book has been delated','danger')
-});
+next_b.addEventListener('click',(e) => {
+   nextslide();
+})
 
+prev_b.addEventListener('click',(e) => {
+    prevslide();
+})
+
+if(auto){
+    sliderauto = setInterval(nextslide,3000);
+}
