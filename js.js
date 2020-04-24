@@ -1,37 +1,14 @@
-let main_div = document.querySelectorAll('.slide');
-let prev_b = document.querySelector('#prev');
-let next_b = document.querySelector('#next');
-let auto = true;
-let sliderauto;
+let current = document.querySelector('#current');
+let img = document.querySelectorAll('.imgs img');
+let opacity = 0.4;
 
-nextslide = (e) => {
-    let current = document.querySelector('.current');
-    current.classList.remove('current');
-    if (current.nextElementSibling) {
-       current.nextElementSibling.classList.add('current'); 
-    }else{
-        main_div[0].classList.add('current');
-    }
-}
+img.forEach(imgs => addEventListener('click',(e) =>{
+    imgs.style.opacity = 1;
 
-prevslide = (e) => {
-    let current = document.querySelector('.current');
-    current.classList.remove('current');
-    if (current.previousElementSibling) {
-       current.previousElementSibling.classList.add('current'); 
-    }else{
-        main_div[main_div.length-1].classList.add('current');
-    }
-}
+    current.src = e.target.src;
+    current.classList.add('fade-in');
 
-next_b.addEventListener('click',(e) => {
-   nextslide();
-})
+    e.target.style.opacity = opacity;
 
-prev_b.addEventListener('click',(e) => {
-    prevslide();
-})
-
-if(auto){
-    sliderauto = setInterval(nextslide,3000);
-}
+    setTimeout(() => current.classList.remove('fade-in'),500);
+}))
