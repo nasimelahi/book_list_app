@@ -1,0 +1,47 @@
+<div class="item cart-item d-flex ">
+                <!--<img src="./img/img1 (1).jpg" class="rounded-circle" >-->
+                <h5 class="cart-item-title mr-2"></h5>
+                <span class="counter counter_hide d-flex mx-4">
+                  <span  class="sub border ">-</span>
+                  <span class="mx-2">0</span>
+                  <span class="add border">+</span>
+                </span>
+                <h5 class="cart-item-price ml-1"></h5>
+              </div>
+
+
+
+              //price
+let price = e.target.previousElementSibling.innerText;
+let cart_price = document.querySelector('.cart-item-price');
+cart_price.textContent = price;
+// Title
+let title = e.target.previousElementSibling.previousElementSibling.innerText;
+let cart_item_title = document.querySelector('.cart-item-title');
+cart_item_title.innerText = title;
+console.log(cart_item_title);
+//counter apper
+let counter = document.querySelector('.counter');
+counter.classList.remove('counter_hide');
+console.log(counter);
+
+//main div 
+    let main_div = document.createElement('div');
+    main_div.setAttribute('class','item cart-item d-flex');
+
+    main_div.appendChild(pro_title);
+ main_div.appendChild(main_span);
+ main_div.appendChild(pri);
+
+ console.log(main_div);
+ addEventListener('click',(e) =>{
+        if(e.target.classList.contains('add')){
+            cvalue.innerText = couneter_value_in++ ;
+            pri.innerText =parseFloat(cvalue.innerText*main_price) ;
+        }else if(e.target.classList.contains('sub')){
+            cvalue.innerText = couneter_value_in -- ; 
+            if(cvalue.innerText <= '1'){
+                cvalue.innerText = ''; 
+            }
+        }
+      });
